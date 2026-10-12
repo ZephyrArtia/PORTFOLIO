@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angel Alon | Portfolio & Creative Developer</title>
+  <meta name="description" content="Personal portfolio of Angel Alon - Creative Web Developer and Digital Designer. Contact: angelalon0923@gmail.com | +63 968 729 1851">
+  <meta name="author" content="Angel Alon">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%20viewBox=%220%200%20100%20100%22><text y=%22.9em%22 font-size=%2290%22>🌷</text></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Quicksand:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="pastel">
+  <!-- Dynamic Background Container -->
+  <div class="bg-media-container" id="bgContainer">
+    <div class="bg-media-overlay"></div>
+    <div class="bg-floating-shapes" id="particlesContainer"></div>
+  </div>
+
+  <!-- Ambient Sound / Sparkle Floating Controls -->
+  <div class="floating-gadgets" aria-label="Quick utilities">
+    <button class="gadget-btn" id="petalToggleBtn" title="Toggle Floating Petals / Hearts" aria-label="Toggle floating effects">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      <span class="gadget-tooltip">Petals: ON</span>
+    </button>
+    <button class="gadget-btn" id="soundToggleBtn" title="Play Relaxing Cozy Ambience" aria-label="Play relaxing cozy ambient lofi chord">
+      <i class="fa-solid fa-music" id="musicIcon"></i>
+      <span class="gadget-tooltip" id="musicTooltip">Lofi Ambience</span>
+    </button>
+    <button class="gadget-btn" id="themeModeBtn" title="Toggle Theme Atmosphere" aria-label="Toggle theme atmosphere">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+      <span class="gadget-tooltip">Theme Mode</span>
+    </button>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-hub" id="toastHub" aria-live="polite"></div>
+
+  <!-- Navigation Bar -->
+  <header class="navbar-wrapper">
+    <nav class="navbar" id="navbar">
+      <a href="#hero" class="brand-link" aria-label="Angel Alon home">
+        <span class="brand-flower">🌷</span>
+        <div class="brand-text">
+          <span class="brand-name">Angel Alon</span>
+          <span class="brand-badge">Portfolio</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about" class="nav-item"><i class="fa-regular fa-user"></i> <span>About</span></a></li>
+        <li><a href="#skills" class="nav-item"><i class="fa-solid fa-code"></i> <span>Skills</span></a></li>
+        <li><a href="#projects" class="nav-item"><i class="fa-solid fa-layer-group"></i> <span>Projects</span></a></li>
+        <li><a href="#interactive" class="nav-item"><i class="fa-solid fa-gamepad"></i> <span>Playground</span></a></li>
+        <li><a href="#contact" class="nav-item"><i class="fa-regular fa-envelope"></i> <span>Contact</span></a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-pill btn-primary-glow btn-sm">
+          <span>Let's Talk</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="content-container">
+
+    <!-- HERO SECTION WITH BANNER & PROFILE CARD -->
+    <section class="hero-section" id="hero">
+      <div class="hero-card glass-panel">
+        
+        <!-- Top Banner (download (5)) with Moving Irises Following Cursor -->
+        <div class="hero-banner-frame" id="heroBannerFrame" title="Interactive Anime Eyes: The irises smoothly follow your cursor!">
+          <canvas id="bannerEyeCanvas" width="736" height="224" class="hero-banner-canvas"></canvas>
+          <img src="assets/banner.jpg" alt="Angel Alon Banner - Anime Pink Eyes Aesthetic" class="hero-banner-img" id="heroBanner">
+          <div class="banner-gradient-overlay"></div>
+          <div class="banner-badge-chip">
+            <span class="pulse-dot"></span>
+            <span>Welcome to my creative universe ✨</span>
+          </div>
+          <div class="banner-eye-hint" id="bannerEyeHint">
+            <i class="fa-solid fa-eye text-pink"></i>
+            <span>Interactive Eyes • Follows Cursor ✨</span>
+          </div>
+          <div class="banner-tag">
+            <i class="fa-solid fa-sparkles"></i> 2026 Portfolio Edition
+          </div>
+        </div>
+
+        <!-- Profile Bar overlapping Banner (MEH) -->
+        <div class="hero-profile-bar">
+          <div class="avatar-holder">
+            <div class="avatar-ring-glow">
+              <img src="assets/profile.jpg" alt="Angel Alon Profile Picture" class="avatar-img" id="avatarImg">
+            </div>
+            <div class="status-indicator" title="Available for projects & opportunities">
+              <span class="status-dot"></span>
+              <span class="status-text">Available</span>
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons on right of profile -->
+          <div class="profile-quick-actions">
+            <button class="btn btn-pill btn-mint" onclick="copyContact('email')" title="Copy email address">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copy Email</span>
+            </button>
+            <button class="btn btn-pill btn-pink" onclick="copyContact('phone')" title="Copy phone number">
+              <i class="fa-solid fa-phone"></i>
+              <span>Copy Phone</span>
+            </button>
+            <a href="#contact" class="btn btn-pill btn-rose">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Message Me</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Identity & Bio Summary -->
+        <div class="hero-info-grid">
+          <div class="hero-intro">
+            <div class="intro-greeting">
+              <span class="hand-wave">👋</span>
+              <span class="greeting-subtitle">Hello World, I'm</span>
+            </div>
+            <h1 class="hero-name">Angel Alon</h1>
+            <h2 class="hero-headline">
+              <span class="typed-text" id="typedText">Creative Web Developer & Digital Creator</span>
+              <span class="cursor-blink">|</span>
+            </h2>
+            <p class="hero-bio">
+              Welcome to my digital sanctuary! Blending smooth interactive functionality with soft pastel aesthetic design. 
+              Passionate about creating delightful user experiences, clean web interfaces, and creative digital journeys.
+            </p>
+
+            <!-- Quick Contact Badges Pill List -->
+            <div class="contact-badges-group">
+              <div class="badge-item badge-email" onclick="copyContact('email')" role="button" tabindex="0" title="Click to copy: angelalon0923@gmail.com">
+                <i class="fa-solid fa-envelope icon-accent"></i>
+                <span class="badge-val">angelalon0923@gmail.com</span>
+                <i class="fa-regular fa-copy copy-hint"></i>
+              </div>
+
+              <div class="badge-item badge-phone" onclick="copyContact('phone')" role="button" tabindex="0" title="Click to copy: 63+9687291851">
+                <i class="fa-solid fa-phone icon-accent"></i>
+                <span class="badge-val">+63 968 729 1851</span>
+                <i class="fa-regular fa-copy copy-hint"></i>
+              </div>
+
+              <a href="https://www.facebook.com/angel.alon.300289" target="_blank" rel="noopener noreferrer" class="badge-item badge-facebook" title="Open Angel Alon on Facebook">
+                <i class="fa-brands fa-facebook-f icon-accent text-fb"></i>
+                <span class="badge-val">Facebook</span>
+                <i class="fa-solid fa-arrow-up-right-from-square copy-hint"></i>
+              </a>
+
+              <a href="https://www.instagram.com/not.ur.andreii/" target="_blank" rel="noopener noreferrer" class="badge-item badge-instagram" title="Open @not.ur.andreii on Instagram">
+                <i class="fa-brands fa-instagram icon-accent text-ig"></i>
+                <span class="badge-val">@not.ur.andreii</span>
+                <i class="fa-solid fa-arrow-up-right-from-square copy-hint"></i>
+              </a>
+
+              <a href="https://github.com/ZephyrArtia" target="_blank" rel="noopener noreferrer" class="badge-item badge-github" title="Visit ZephyrArtia on GitHub">
+                <i class="fa-brands fa-github icon-accent text-github"></i>
+                <span class="badge-val">GitHub</span>
+                <i class="fa-solid fa-arrow-up-right-from-square copy-hint"></i>
+              </a>
+
+              <div class="badge-item badge-location">
+                <i class="fa-solid fa-location-dot icon-accent"></i>
+                <span class="badge-val">Philippines 🇵🇭</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Highlights / Stats Card -->
+          <div class="hero-stats-card glass-subcard">
+            <h3 class="subcard-title"><i class="fa-solid fa-bolt"></i> Quick Highlights</h3>
+            
+            <div class="stat-pill-grid">
+              <div class="stat-pill">
+                <div class="stat-num">100%</div>
+                <div class="stat-lbl">Passion & Dedication</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-num">Creative</div>
+                <div class="stat-lbl">UI/UX Mindset</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-num">Responsive</div>
+                <div class="stat-lbl">Mobile-First Code</div>
+              </div>
+              <div class="stat-pill">
+                <div class="stat-num">24/7</div>
+                <div class="stat-lbl">Love for Learning</div>
+              </div>
+            </div>
+
+            <!-- Tulip Garden Interactive Clicker Counter -->
+            <div class="tulip-counter-widget" id="tulipWidget">
+              <div class="tulip-counter-header">
+                <span>Give Angel a Tulip</span>
+                <span class="tulip-score-pill"><i class="fa-solid fa-heart text-pink"></i> <span id="tulipCount">42</span> Tulips</span>
+              </div>
+              <button class="btn btn-tulip-tap" id="tulipTapBtn" aria-label="Send a tulip flower">
+                <span>Send a Tulip 🌷</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section-wrapper" id="about">
+      <div class="section-header text-center">
+        <div class="section-tag"><i class="fa-regular fa-heart"></i> Get To Know Me</div>
+        <h2 class="section-title">About Angel Alon</h2>
+        <p class="section-subtitle">A glimpse into my background, creative ethos, and what drives my craft.</p>
+      </div>
+
+      <div class="about-grid">
+        <!-- Main Story Card -->
+        <div class="about-story-card glass-panel">
+          <div class="story-tag-pill">My Journey</div>
+          <h3 class="story-heading">Turning Ideas into Sweet, Interactive Realities</h3>
+          <p class="story-paragraph">
+            Hello! My name is <strong>Angel Alon</strong>. I'm a technology and web enthusiast who finds joy in the sweet spot where thoughtful design meets rock-solid code. 
+          </p>
+          <p class="story-paragraph">
+            From crafting aesthetic, pixel-perfect user interfaces to ensuring silky smooth responsiveness across all screen sizes, my goal is always to deliver web experiences that feel cozy, intuitive, and memorable.
+          </p>
+          <p class="story-paragraph">
+            When I'm not tweaking CSS gradients or structuring interactive web apps, you'll find me exploring modern design trends, enjoying anime aesthetics, gaming, and discovering new music.
+          </p>
+
+          <div class="story-meta-pills">
+            <span class="meta-tag"><i class="fa-solid fa-palette"></i> Pastel Aesthetics</span>
+            <span class="meta-tag"><i class="fa-solid fa-laptop-code"></i> Frontend Engineering</span>
+            <span class="meta-tag"><i class="fa-solid fa-mobile-screen"></i> Responsive UI</span>
+            <span class="meta-tag"><i class="fa-solid fa-lightbulb"></i> Detail Oriented</span>
+          </div>
+        </div>
+
+        <!-- Bento Grid Services / Strengths -->
+        <div class="about-bento-column">
+          <div class="bento-card glass-panel">
+            <div class="bento-icon icon-mint"><i class="fa-solid fa-code"></i></div>
+            <h4 class="bento-title">Web Development</h4>
+            <p class="bento-desc">Building fast, clean, and accessible web experiences using modern HTML5, CSS3, and JavaScript.</p>
+          </div>
+
+          <div class="bento-card glass-panel">
+            <div class="bento-icon icon-pink"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h4 class="bento-title">UI/UX & Aesthetics</h4>
+            <p class="bento-desc">Crafting inviting layouts, harmonic color palettes, glassmorphic elements, and charming micro-interactions.</p>
+          </div>
+
+          <div class="bento-card glass-panel">
+            <div class="bento-icon icon-purple"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <h4 class="bento-title">Responsive Design</h4>
+            <p class="bento-desc">Ensuring flawless viewing and intuitive touch controls across mobile phones, tablets, and wide screens.</p>
+          </div>
+
+          <div class="bento-card glass-panel">
+            <div class="bento-icon icon-rose"><i class="fa-solid fa-comments"></i></div>
+            <h4 class="bento-title">Collaboration & Care</h4>
+            <p class="bento-desc">Clear communication, friendly attitude, and genuine attention to detail for every project.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section-wrapper" id="skills">
+      <div class="section-header text-center">
+        <div class="section-tag"><i class="fa-solid fa-code"></i> My Arsenal</div>
+        <h2 class="section-title">Skills & Technologies</h2>
+        <p class="section-subtitle">Tools, languages, and creative competencies I employ to build web wonders.</p>
+      </div>
+
+      <div class="skills-categories-grid">
+        <!-- Frontend Development -->
+        <div class="skill-category-card glass-panel">
+          <div class="category-header">
+            <div class="category-icon bg-pink-soft"><i class="fa-brands fa-html5"></i></div>
+            <div>
+              <h3 class="category-title">Frontend Mastery</h3>
+              <p class="category-sub">Structure, styling & interactivity</p>
+            </div>
+          </div>
+          <div class="skill-tags-flow">
+            <div class="skill-bubble" data-level="68%">
+              <i class="fa-brands fa-html5 text-orange"></i>
+              <span>HTML5 Semantic</span>
+              <span class="skill-pct">68%</span>
+            </div>
+            <div class="skill-bubble" data-level="73%">
+              <i class="fa-brands fa-css3-alt text-blue"></i>
+              <span>CSS3 & Modern Layouts</span>
+              <span class="skill-pct">73%</span>
+            </div>
+            <div class="skill-bubble" data-level="46%">
+              <i class="fa-brands fa-js text-yellow"></i>
+              <span>JavaScript (ES6+)</span>
+              <span class="skill-pct">46%</span>
+            </div>
+            <div class="skill-bubble" data-level="0%">
+              <i class="fa-brands fa-react text-cyan"></i>
+              <span>React & Component UI</span>
+              <span class="skill-pct">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- UI/UX & Design -->
+        <div class="skill-category-card glass-panel">
+          <div class="category-header">
+            <div class="category-icon bg-mint-soft"><i class="fa-solid fa-pen-nib"></i></div>
+            <div>
+              <h3 class="category-title">Design & Aesthetics</h3>
+              <p class="category-sub">Visual charm, layout & color</p>
+            </div>
+          </div>
+          <div class="skill-tags-flow">
+            <div class="skill-bubble" data-level="62%">
+              <i class="fa-solid fa-palette text-pink"></i>
+              <span>Pastel & Claymorphism</span>
+              <span class="skill-pct">62%</span>
+            </div>
+            <div class="skill-bubble" data-level="50%">
+              <i class="fa-brands fa-figma text-purple"></i>
+              <span>Figma Prototyping</span>
+              <span class="skill-pct">50%</span>
+            </div>
+            <div class="skill-bubble" data-level="58%">
+              <i class="fa-solid fa-mobile-screen text-mint"></i>
+              <span>Mobile-First UX</span>
+              <span class="skill-pct">58%</span>
+            </div>
+            <div class="skill-bubble" data-level="65%">
+              <i class="fa-solid fa-font text-rose"></i>
+              <span>Typography & Colors</span>
+              <span class="skill-pct">65%</span>
+            </div>
+            <div class="skill-bubble" data-level="40%">
+              <i class="fa-solid fa-sparkles text-yellow"></i>
+              <span>Micro-Animations</span>
+              <span class="skill-pct">40%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workflow & Tools -->
+        <div class="skill-category-card glass-panel">
+          <div class="category-header">
+            <div class="category-icon bg-purple-soft"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <div>
+              <h3 class="category-title">Tools & Workflow</h3>
+              <p class="category-sub">Student toolset & development</p>
+            </div>
+          </div>
+          <div class="skill-tags-flow">
+            <div class="skill-bubble" data-level="52%">
+              <i class="fa-brands fa-git-alt text-orange"></i>
+              <span>Git & GitHub</span>
+              <span class="skill-pct">52%</span>
+            </div>
+            <div class="skill-bubble" data-level="70%">
+              <i class="fa-solid fa-laptop-code text-blue"></i>
+              <span>VS Code & DevTools</span>
+              <span class="skill-pct">70%</span>
+            </div>
+            <div class="skill-bubble" data-level="45%">
+              <i class="fa-solid fa-cloud-arrow-up text-cyan"></i>
+              <span>Web Hosting & Deploy</span>
+              <span class="skill-pct">45%</span>
+            </div>
+            <div class="skill-bubble" data-level="35%">
+              <i class="fa-solid fa-gauge-high text-mint"></i>
+              <span>Performance Optimization</span>
+              <span class="skill-pct">35%</span>
+            </div>
+            <div class="skill-bubble" data-level="48%">
+              <i class="fa-solid fa-circle-check text-green"></i>
+              <span>Cross-Browser Testing</span>
+              <span class="skill-pct">48%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section class="section-wrapper" id="projects">
+      <div class="section-header text-center">
+        <div class="section-tag"><i class="fa-solid fa-folder-open"></i> Portfolio Showcase</div>
+        <h2 class="section-title">Featured Works & Concepts</h2>
+        <p class="section-subtitle">Explore a selection of responsive web creations, design concepts, and interactive tools.</p>
+      </div>
+
+      <!-- Project Filters -->
+      <div class="filter-tabs-wrapper">
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="web">Web Apps</button>
+          <button class="filter-btn" data-filter="ui">UI/UX Concepts</button>
+          <button class="filter-btn" data-filter="interactive">Interactive</button>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid" id="projectsGrid">
+
+        <!-- Project 1: SafeSteps.PH - Cebu Tourism & Travel Safety Portal -->
+        <article class="project-card glass-panel" data-category="web interactive">
+          <div class="project-media-frame project-screenshot-frame">
+            <img id="safeStepsImg" src="assets/safesteps_preview1.png" alt="SafeSteps.PH Cebu Tourism & Travel Safety Portal" class="project-real-img" loading="lazy">
+            <div class="project-thumb-switcher" title="Toggle project views">
+              <button class="thumb-btn active" onclick="switchSafeStepsPreview(1, event)" title="View 1: Tourism & Safety Portal"></button>
+              <button class="thumb-btn" onclick="switchSafeStepsPreview(2, event)" title="View 2: Cebu Top 20 Spots & Tours"></button>
+            </div>
+            <div class="project-badge"><i class="fa-solid fa-star"></i> Featured Project</div>
+          </div>
+          <div class="project-content">
+            <div class="project-category-tag"><i class="fa-solid fa-umbrella-beach"></i> Philippine Tourism & Web App</div>
+            <h3 class="project-title">SafeSteps.PH (SS.PH)</h3>
+            <p class="project-desc">
+              A comprehensive Philippine tourist guide and travel safety web portal highlighting Cebu City's iconic attractions (Kawasan Falls, Magellan's Cross, Osmeña Peak), tour packages, curated itineraries, and emergency safety guidelines.
+            </p>
+            <div class="tech-pills-row">
+              <span class="tech-pill">HTML5</span>
+              <span class="tech-pill">CSS3</span>
+              <span class="tech-pill">JavaScript</span>
+              <span class="tech-pill">Tourism UI</span>
+              <span class="tech-pill">PH Travel Safety</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn btn-pill btn-primary-glow btn-sm" onclick="openDemoModal('safesteps')">
+                <i class="fa-solid fa-images"></i>
+                <span>Explore Showcase</span>
+              </button>
+              <a href="https://github.com/ZephyrArtia" target="_blank" rel="noopener noreferrer" class="btn btn-pill btn-github btn-sm" title="View ZephyrArtia on GitHub">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: Anime Vision Aesthetics -->
+        <article class="project-card glass-panel" data-category="ui">
+          <div class="project-media-frame">
+            <div class="project-preview-mockup project-bg-anime">
+              <div class="mockup-header-bar">
+                <span class="mock-dot red"></span>
+                <span class="mock-dot yellow"></span>
+                <span class="mock-dot green"></span>
+                <span class="mockup-title-text">Anime Aesthetic Hub</span>
+              </div>
+              <div class="mockup-screen-preview">
+                <div class="preview-clay-card">
+                  <span class="preview-emoji">✨</span>
+                  <h4>Sakura Art & Media Hub</h4>
+                  <p>Curated anime moodboards & palettes</p>
+                </div>
+              </div>
+            </div>
+            <div class="project-badge">Design</div>
+          </div>
+          <div class="project-content">
+            <div class="project-category-tag">UI/UX Concept</div>
+            <h3 class="project-title">Sakura Anime Media Vault</h3>
+            <p class="project-desc">
+              An aesthetic media and art tracker featuring pink glowing neo-glassmorphic styling, character cards, dynamic filter tags, and smooth page transitions.
+            </p>
+            <div class="tech-pills-row">
+              <span class="tech-pill">UI Design</span>
+              <span class="tech-pill">Flex & Grid</span>
+              <span class="tech-pill">Modern CSS</span>
+              <span class="tech-pill">Figma</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn btn-pill btn-mint btn-sm" onclick="openDemoModal('anime')">
+                <i class="fa-solid fa-eye"></i>
+                <span>View Concept</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3: Pastel Calculator & Utilities -->
+        <article class="project-card glass-panel" data-category="interactive web">
+          <div class="project-media-frame">
+            <div class="project-preview-mockup project-bg-calc">
+              <div class="mockup-header-bar">
+                <span class="mock-dot red"></span>
+                <span class="mock-dot yellow"></span>
+                <span class="mock-dot green"></span>
+                <span class="mockup-title-text">Cozy Pastel Calculator</span>
+              </div>
+              <div class="mockup-screen-preview">
+                <div class="preview-clay-card">
+                  <span class="preview-emoji">🧮</span>
+                  <h4>Claymorphic Calculator</h4>
+                  <p>Haptic click sounds & smooth physics</p>
+                </div>
+              </div>
+            </div>
+            <div class="project-badge">Utility</div>
+          </div>
+          <div class="project-content">
+            <div class="project-category-tag">Interactive Web Tool</div>
+            <h3 class="project-title">Pastel Glass Calculator</h3>
+            <p class="project-desc">
+              A playful tactile calculator built with soft neumorphism, bubbly key feedback, history tape, and customizable pastel color themes.
+            </p>
+            <div class="tech-pills-row">
+              <span class="tech-pill">JavaScript ES6</span>
+              <span class="tech-pill">CSS Shadows</span>
+              <span class="tech-pill">Web Audio API</span>
+            </div>
+            <div class="project-actions">
+              <button class="btn btn-pill btn-rose btn-sm" onclick="openDemoModal('calc')">
+                <i class="fa-solid fa-calculator"></i>
+                <span>Try Calculator</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4: Angel's Portfolio 2.0 -->
+        <article class="project-card glass-panel" data-category="web">
+          <div class="project-media-frame">
+            <div class="project-preview-mockup project-bg-port">
+              <div class="mockup-header-bar">
+                <span class="mock-dot red"></span>
+                <span class="mock-dot yellow"></span>
+                <span class="mock-dot green"></span>
+                <span class="mockup-title-text">Portfolio 2.0 Web</span>
+              </div>
+              <div class="mockup-screen-preview">
+                <div class="preview-clay-card">
+                  <span class="preview-emoji">🌸</span>
+                  <h4>Angel Alon Portfolio</h4>
+                  <p>Custom theme with banner & ambient vibe</p>
+                </div>
+              </div>
+            </div>
+            <div class="project-badge">Live Here</div>
+          </div>
+          <div class="project-content">
+            <div class="project-category-tag">Personal Portfolio</div>
+            <h3 class="project-title">Personal Brand & Showcase</h3>
+            <p class="project-desc">
+              The very site you are viewing right now! Crafted with custom responsive layouts, tulip theme backdrop, banner integration, and contact shortcuts.
+            </p>
+            <div class="tech-pills-row">
+              <span class="tech-pill">HTML5</span>
+              <span class="tech-pill">CSS Custom Properties</span>
+              <span class="tech-pill">Pure JS</span>
+              <span class="tech-pill">Responsive</span>
+            </div>
+            <div class="project-actions">
+              <a href="#hero" class="btn btn-pill btn-primary-glow btn-sm">
+                <i class="fa-solid fa-arrow-up"></i>
+                <span>Explore Live</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- INTERACTIVE PLAYGROUND SECTION -->
+    <section class="section-wrapper" id="interactive">
+      <div class="section-header text-center">
+        <div class="section-tag"><i class="fa-solid fa-dice"></i> Interactive Fun</div>
+        <h2 class="section-title">Angel's Cozy Playground</h2>
+        <p class="section-subtitle">Take a moment to relax with small interactive widgets crafted right for you.</p>
+      </div>
+
+      <div class="interactive-grid">
+        <!-- Interactive 1: Quick To-Do / Wishlist Widget -->
+        <div class="playground-card glass-panel">
+          <div class="playground-card-header">
+            <div class="pg-icon"><i class="fa-solid fa-clipboard-check text-mint"></i></div>
+            <div>
+              <h3 class="pg-title">Instant Idea & Task Pad</h3>
+              <p class="pg-desc">Try adding a task or note right here!</p>
+            </div>
+          </div>
+          <div class="todo-widget">
+            <form id="quickTodoForm" class="todo-form">
+              <input type="text" id="quickTodoInput" placeholder="E.g., Hire Angel Alon for our project! 🌷" required>
+              <button type="submit" class="btn btn-pill btn-mint btn-sm">
+                <i class="fa-solid fa-plus"></i> Add
+              </button>
+            </form>
+            <ul class="todo-list" id="todoList">
+              <li class="todo-item done">
+                <span class="todo-check" onclick="toggleTodoItem(this)"><i class="fa-solid fa-check"></i></span>
+                <span class="todo-text">Check out Angel Alon's portfolio</span>
+                <button class="todo-del" onclick="removeTodoItem(this)" aria-label="Remove item"><i class="fa-solid fa-xmark"></i></button>
+              </li>
+              <li class="todo-item">
+                <span class="todo-check" onclick="toggleTodoItem(this)"><i class="fa-solid fa-check"></i></span>
+                <span class="todo-text">Copy Angel's Gmail: angelalon0923@gmail.com</span>
+                <button class="todo-del" onclick="removeTodoItem(this)" aria-label="Remove item"><i class="fa-solid fa-xmark"></i></button>
+              </li>
+              <li class="todo-item">
+                <span class="todo-check" onclick="toggleTodoItem(this)"><i class="fa-solid fa-check"></i></span>
+                <span class="todo-text">Send a nice message or project inquiry</span>
+                <button class="todo-del" onclick="removeTodoItem(this)" aria-label="Remove item"><i class="fa-solid fa-xmark"></i></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Interactive 2: Cozy Ambience & Sound Player -->
+        <div class="playground-card glass-panel">
+          <div class="playground-card-header">
+            <div class="pg-icon"><i class="fa-solid fa-headphones text-pink"></i></div>
+            <div>
+              <h3 class="pg-title">Cozy Sound Atmosphere</h3>
+              <p class="pg-desc">Procedural audio synthesized directly in your browser!</p>
+            </div>
+          </div>
+          <div class="soundboard-widget">
+            <div class="sound-moods">
+              <button class="mood-btn" onclick="playSynthesizedSound('gentleChord')">
+                <i class="fa-solid fa-bell"></i>
+                <span>Pastel Chime</span>
+              </button>
+              <button class="mood-btn" onclick="playSynthesizedSound('bubble')">
+                <i class="fa-solid fa-droplet"></i>
+                <span>Soft Pop</span>
+              </button>
+              <button class="mood-btn" onclick="playSynthesizedSound('harp')">
+                <i class="fa-solid fa-feather"></i>
+                <span>Angel Harp</span>
+              </button>
+              <button class="mood-btn" onclick="playSynthesizedSound('sparkle')">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <span>Magic Sparkle</span>
+              </button>
+            </div>
+            <div class="ambience-row">
+              <button class="btn btn-pill btn-primary-glow w-100" id="mainLofiToggleBtn">
+                <i class="fa-solid fa-play" id="mainPlayIcon"></i>
+                <span id="mainPlayText">Start Continuous Cozy Drone</span>
+              </button>
+            </div>
+            <p class="sound-note">💡 No external audio files needed — rendered live via the HTML5 Web Audio API.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section-wrapper" id="contact">
+      <div class="section-header text-center">
+        <div class="section-tag"><i class="fa-regular fa-paper-plane"></i> Get In Touch</div>
+        <h2 class="section-title">Let's Connect & Build Together</h2>
+        <p class="section-subtitle">Have a project, freelance idea, or simply want to say hi? I'd love to hear from you!</p>
+      </div>
+
+      <div class="contact-layout-grid">
+        <!-- Direct Contact Cards Column -->
+        <div class="contact-details-col">
+
+          <!-- Gmail Card -->
+          <div class="contact-card glass-panel">
+            <div class="contact-icon bg-pink-soft">
+              <i class="fa-solid fa-envelope"></i>
+            </div>
+            <div class="contact-info-text">
+              <span class="contact-lbl">Direct Email</span>
+              <a href="mailto:angelalon0923@gmail.com" class="contact-val email-link">angelalon0923@gmail.com</a>
+              <span class="contact-sub">Available for inquiries & collabs</span>
+            </div>
+            <div class="card-action-btns">
+              <button class="btn btn-pill btn-pink btn-sm" onclick="copyContact('email')" title="Copy email address">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <a href="mailto:angelalon0923@gmail.com" class="btn btn-pill btn-primary-glow btn-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Mail</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Phone Card -->
+          <div class="contact-card glass-panel">
+            <div class="contact-icon bg-mint-soft">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="contact-info-text">
+              <span class="contact-lbl">Phone & Mobile</span>
+              <a href="tel:+639687291851" class="contact-val phone-link">63+9687291851</a>
+              <span class="contact-sub">Philippines (+63) Standard Time</span>
+            </div>
+            <div class="card-action-btns">
+              <button class="btn btn-pill btn-mint btn-sm" onclick="copyContact('phone')" title="Copy phone number">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <a href="tel:+639687291851" class="btn btn-pill btn-primary-glow btn-sm">
+                <i class="fa-solid fa-phone"></i>
+                <span>Call</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Facebook Card -->
+          <div class="contact-card glass-panel">
+            <div class="contact-icon bg-blue-soft">
+              <i class="fa-brands fa-facebook-f text-fb"></i>
+            </div>
+            <div class="contact-info-text">
+              <span class="contact-lbl">Facebook</span>
+              <a href="https://www.facebook.com/angel.alon.300289" target="_blank" rel="noopener noreferrer" class="contact-val">Angel Alon</a>
+              <span class="contact-sub">facebook.com/angel.alon.300289</span>
+            </div>
+            <div class="card-action-btns">
+              <button class="btn btn-pill btn-mint btn-sm" onclick="copyContact('facebook')" title="Copy Facebook URL">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <a href="https://www.facebook.com/angel.alon.300289" target="_blank" rel="noopener noreferrer" class="btn btn-pill btn-primary-glow btn-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Visit</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Instagram Card -->
+          <div class="contact-card glass-panel">
+            <div class="contact-icon bg-ig-soft">
+              <i class="fa-brands fa-instagram text-ig"></i>
+            </div>
+            <div class="contact-info-text">
+              <span class="contact-lbl">Instagram</span>
+              <a href="https://www.instagram.com/not.ur.andreii/" target="_blank" rel="noopener noreferrer" class="contact-val">@not.ur.andreii</a>
+              <span class="contact-sub">instagram.com/not.ur.andreii</span>
+            </div>
+            <div class="card-action-btns">
+              <button class="btn btn-pill btn-pink btn-sm" onclick="copyContact('instagram')" title="Copy Instagram URL">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <a href="https://www.instagram.com/not.ur.andreii/" target="_blank" rel="noopener noreferrer" class="btn btn-pill btn-primary-glow btn-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Visit</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- GitHub Card -->
+          <div class="contact-card glass-panel">
+            <div class="contact-icon bg-github-soft">
+              <i class="fa-brands fa-github text-github"></i>
+            </div>
+            <div class="contact-info-text">
+              <span class="contact-lbl">GitHub</span>
+              <a href="https://github.com/ZephyrArtia" target="_blank" rel="noopener noreferrer" class="contact-val">ZephyrArtia</a>
+              <span class="contact-sub">github.com/ZephyrArtia</span>
+            </div>
+            <div class="card-action-btns">
+              <button class="btn btn-pill btn-mint btn-sm" onclick="copyContact('github')" title="Copy GitHub Profile URL">
+                <i class="fa-regular fa-copy"></i>
+                <span>Copy</span>
+              </button>
+              <a href="https://github.com/ZephyrArtia" target="_blank" rel="noopener noreferrer" class="btn btn-pill btn-github btn-sm">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Visit</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Response Time / Availability Card -->
+          <div class="contact-card glass-panel highlight-card">
+            <div class="contact-icon bg-purple-soft">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div class="contact-info-text">
+              <span class="contact-lbl">Current Availability</span>
+              <span class="contact-val font-accent">Open for Opportunities</span>
+              <span class="contact-sub">Fast replies within 24 hours 🌸</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Contact Form Card -->
+        <div class="contact-form-card glass-panel">
+          <div class="form-header">
+            <h3 class="form-title"><i class="fa-solid fa-message text-pink"></i> Send Angel a Message</h3>
+            <p class="form-subtitle">Fill in the fields below to initiate a direct message or launch your default email client.</p>
+          </div>
+
+          <form id="contactForm" class="contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="senderName"><i class="fa-regular fa-user"></i> Your Name</label>
+                <input type="text" id="senderName" name="senderName" placeholder="What's your name?" required>
+              </div>
+              <div class="form-group">
+                <label for="senderEmail"><i class="fa-regular fa-envelope"></i> Your Email</label>
+                <input type="email" id="senderEmail" name="senderEmail" placeholder="yourname@example.com" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="senderSubject"><i class="fa-solid fa-tag"></i> Subject</label>
+              <input type="text" id="senderSubject" name="senderSubject" placeholder="Project Inquiry / Friendly Hello 🌷" required>
+            </div>
+
+            <div class="form-group">
+              <label for="senderMessage"><i class="fa-regular fa-comment-dots"></i> Message</label>
+              <textarea id="senderMessage" name="senderMessage" rows="5" placeholder="Hi Angel, I saw your portfolio and would like to talk about..." required></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-pill btn-primary-glow btn-lg w-100">
+                <span>Send Message to Angel</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Project Preview Modal -->
+  <div class="modal-backdrop" id="demoModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-dialog glass-panel">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-icon" id="modalIcon">🌷</span>
+          <h3 class="modal-title" id="modalTitle">Project Demo</h3>
+        </div>
+        <button class="modal-close" onclick="closeDemoModal()" aria-label="Close modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Injected via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer-wrapper">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <span class="footer-logo">Angel Alon 🌷</span>
+        <p class="footer-desc">Crafted with care, pastel aesthetics, and modern web magic.</p>
+      </div>
+
+      <div class="footer-contacts">
+        <span class="footer-contact-item" onclick="copyContact('email')" title="Click to copy email">
+          <i class="fa-solid fa-envelope"></i> angelalon0923@gmail.com
+        </span>
+        <span class="footer-contact-divider">•</span>
+        <span class="footer-contact-item" onclick="copyContact('phone')" title="Click to copy phone">
+          <i class="fa-solid fa-phone"></i> +63 968 729 1851
+        </span>
+        <span class="footer-contact-divider">•</span>
+        <a href="https://github.com/ZephyrArtia" target="_blank" rel="noopener noreferrer" class="footer-contact-item" title="Visit ZephyrArtia on GitHub">
+          <i class="fa-brands fa-github text-github"></i> GitHub
+        </a>
+        <span class="footer-contact-divider">•</span>
+        <a href="https://www.facebook.com/angel.alon.300289" target="_blank" rel="noopener noreferrer" class="footer-contact-item" title="Visit Angel Alon on Facebook">
+          <i class="fa-brands fa-facebook-f text-fb"></i> Facebook
+        </a>
+        <span class="footer-contact-divider">•</span>
+        <a href="https://www.instagram.com/not.ur.andreii/" target="_blank" rel="noopener noreferrer" class="footer-contact-item" title="Visit @not.ur.andreii on Instagram">
+          <i class="fa-brands fa-instagram text-ig"></i> Instagram
+        </a>
+      </div>
+
+      <div class="footer-copyright">
+        <p>&copy; 2026 Angel Alon. All rights reserved. Made with love & flowers 🌸</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script src="script.js"></script>
+</body>
+</html>
